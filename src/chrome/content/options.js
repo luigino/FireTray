@@ -39,8 +39,13 @@ var firetrayUIOptions = {
         'ui_scroll_hides', 'ui_middle_click', 'newmail_icon_names'
       ]);
     } else if (firetray.AppIndicator) {
+      //this.hideUnsupportedOptions([
+      //  'app_icon_default', 
+		//  'ui_mail_notification_unread_count',
+      //  'newmail_icon_names'
+      //]);
       this.hideUnsupportedOptions([
-        'app_icon_default', 'ui_mail_notification_unread_count',
+        'app_icon_default', 
         'newmail_icon_names'
       ]);
     } else {

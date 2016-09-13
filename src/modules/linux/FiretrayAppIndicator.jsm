@@ -32,8 +32,15 @@ firetray.AppIndicator = {
       firetray.StatusIcon.defaultAppIconName,
       appind.APP_INDICATOR_CATEGORY_COMMUNICATIONS
     );
-    appind.app_indicator_set_icon_theme_path(
-      this.indicator, firetray.StatusIcon.THEME_ICON_PATH);
+
+
+    //appind.app_indicator_set_icon_theme_path(this.indicator, firetray.StatusIcon.THEME_ICON_PATH);
+    appind.app_indicator_set_icon_theme_path(this.indicator, 
+       Components.classes["@mozilla.org/file/directory_service;1"].getService( Components.interfaces.nsIProperties).get("ProfD", Components.interfaces.nsIFile).path 
+       + "/extensions/{9533f794-00b4-4354-aa15-c2bbda6989f8}/chrome/skin/icons/"
+    );
+
+
     appind.app_indicator_set_status(this.indicator,
                                     appind.APP_INDICATOR_STATUS_ACTIVE);
     appind.app_indicator_set_menu(this.indicator,
@@ -145,7 +152,20 @@ firetray.Handler.setIconTooltip = function(toolTipStr) {
 };
 
 // AppIndicator doesn't support pixbuf https://bugs.launchpad.net/bugs/812067
-firetray.Handler.setIconText = function(text, color) { };
+//
+// sajan
+firetray.Handler.setIconText = function(text, color) { 
+	log.error("NOT SUPPORTED: " + text);
+
+	if (text > 99) {
+		text = "max";
+	}
+
+	appind.app_indicator_set_icon_full(
+		firetray.AppIndicator.indicator,
+		"unread/unread-" + text,
+		firetray.Handler.app.name);
+};
 
 firetray.Handler.setIconVisibility = function(visible) {
   if (!firetray.AppIndicator.indicator)
